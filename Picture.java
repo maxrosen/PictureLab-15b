@@ -1,3 +1,5 @@
+//Stevens & Rosen Lab15b v100
+
 import java.awt.*;
 import java.awt.font.*;
 import java.awt.geom.*;
@@ -6,29 +8,6 @@ import java.text.*;
 import java.util.*;
 import java.util.List; // resolves problem with java.awt.List and java.util.List
 
-/**
- * A class that represents a picture.  This class inherits from 
- * SimplePicture and allows the student to add functionality to
- * the Picture class.  
- * 
- * @author Barbara Ericson ericson@cc.gatech.edu
- *
- * 02-27-15 altered by Leon Schram
- * This file is made shorter to focus on the Lab15b assignment.
- *
- */
- 
- 
- 
-//////////////////////////////////////////////////////////////////////////
-//
-// This is the student starting file of the Lab15b assignment.
-//
-// This is the only file that students use to write their methods.
-//
-//////////////////////////////////////////////////////////////////////////
- 
- 
 public class Picture extends SimplePicture 
 {
   ///////////////////// constructors //////////////////////////////////
@@ -210,6 +189,18 @@ public class Picture extends SimplePicture
    // REQUIRED FOR 90-POINTS
    public void mirrorDiagonal()
    { 
+        Pixel[][] pixels = this.getPixels2D();
+        Pixel[][] temp = this.getPixels2D();
+        Color tempColor = new Color(0,0,0);
+        int difference = pixels[0].length - pixels.length;
+        for (int c = 0; c < pixels.length; c++)
+        {
+          for (int r = 0; r < pixels[0].length - difference; r++)
+          {
+              tempColor = temp[r][c].getColor();
+              pixels[c][r].setColor(tempColor);
+          }
+        }
    }
    
 /////////////////////////////////////////////////////////////////////////////////////
@@ -217,6 +208,17 @@ public class Picture extends SimplePicture
    // REQUIRED FOR 100-POINTS
    public void mirrorTemple()
    { 
+        Pixel[][] pixels = this.getPixels2D();
+        Pixel[][] temp = this.getPixels2D();
+        Color tempColor = new Color(0,0,0);
+        for (int r = 0; r < 100; r++)
+        {
+          for (int c = 0; c < pixels[0].length; c++)
+          {
+              tempColor = temp[r][c].getColor();
+              pixels[r][pixels[0].length - c - 1].setColor(tempColor);
+          }
+        }
    }
    
 } 
