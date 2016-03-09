@@ -104,23 +104,13 @@ public class Picture extends SimplePicture
       public void mirror()
       {  
         Pixel[][] pixels = this.getPixels2D();
-        Pixel[][] temp = new Pixel[pixels.length][pixels[0].length];
+        Color[][] colors = new Color[pixels.length][pixels[0].length];
         for (int r = 0; r < pixels.length; r++)
-        {
           for (int c = 0; c < pixels[0].length; c++)
-          {
-              temp[r][c] = pixels[r][c];
-          }
-        }
-        Color tempColor = new Color(0,0,0);
+              colors[r][c] = pixels[r][pixels[0].length - c - 1].getColor();
         for (int r = 0; r < pixels.length; r++)
-        {
           for (int c = 0; c < pixels[0].length; c++)
-          {
-              tempColor = temp[r][c].getColor();
-              pixels[r][pixels[0].length - c - 1].setColor(tempColor);
-          }
-        }
+              pixels[r][c].setColor(colors[r][c]);
       } 
       
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -129,23 +119,13 @@ public class Picture extends SimplePicture
       public void upsideDown()
       { 
         Pixel[][] pixels = this.getPixels2D();
-        Pixel[][] temp = new Pixel[pixels.length][pixels[0].length];
+        Color[][] colors = new Color[pixels.length][pixels[0].length];
         for (int r = 0; r < pixels.length; r++)
-        {
           for (int c = 0; c < pixels[0].length; c++)
-          {
-              temp[r][c] = pixels[r][c];
-          }
-        }
-        Color tempColor = new Color(0,0,0);
+              colors[r][c] = pixels[pixels.length - r - 1][c].getColor();
         for (int r = 0; r < pixels.length; r++)
-        {
           for (int c = 0; c < pixels[0].length; c++)
-          {
-              tempColor = temp[r][c].getColor();
-              pixels[pixels.length - r - 1][c].setColor(tempColor);
-          }
-        }
+              pixels[r][c].setColor(colors[r][c]);
       }    
       
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -154,16 +134,9 @@ public class Picture extends SimplePicture
    public void mirrorVertical()
    {
         Pixel[][] pixels = this.getPixels2D();
-        Pixel[][] temp = this.getPixels2D();
-        Color tempColor = new Color(0,0,0);
         for (int r = 0; r < pixels.length; r++)
-        {
-          for (int c = 0; c < pixels[0].length; c++)
-          {
-              tempColor = temp[r][c].getColor();
-              pixels[r][pixels[0].length - c - 1].setColor(tempColor);
-          }
-        }
+            for (int c = 0; c < pixels[0].length / 2; c++)
+                pixels[r][pixels[0].length - c - 1].setColor(pixels[r][c].getColor());
    }
    
 //////////////////////////////////////////////////////////////////////////////////
@@ -172,53 +145,36 @@ public class Picture extends SimplePicture
    public void mirrorHorizontal()
    {
         Pixel[][] pixels = this.getPixels2D();
-        Pixel[][] temp = this.getPixels2D();
-        Color tempColor = new Color(0,0,0);
-        for (int r = 0; r < pixels.length; r++)
-        {
-          for (int c = 0; c < pixels[0].length; c++)
-          {
-              tempColor = temp[r][c].getColor();
-              pixels[pixels.length - r - 1][c].setColor(tempColor);
-          }
-        }
+        for (int r = 0; r < pixels.length / 2; r++)
+            for (int c = 0; c < pixels[0].length; c++)
+                pixels[pixels.length - r - 1][c].setColor(pixels[r][c].getColor());
    }
       
 //////////////////////////////////////////////////////////////////////////////////////////////////      
     
    // REQUIRED FOR 90-POINTS
    public void mirrorDiagonal()
-   { 
+   {
         Pixel[][] pixels = this.getPixels2D();
-        Pixel[][] temp = this.getPixels2D();
-        Color tempColor = new Color(0,0,0);
-        int difference = pixels[0].length - pixels.length;
-        for (int c = 0; c < pixels.length; c++)
-        {
-          for (int r = 0; r < pixels[0].length - difference; r++)
-          {
-              tempColor = temp[r][c].getColor();
-              pixels[c][r].setColor(tempColor);
-          }
-        }
+        int x;
+        if (pixels.length <= pixels[0].length)
+            x = pixels.length;
+        else
+            x = pixels[0].length;
+        for (int r = 0; r < x; r++)
+            for (int c = 0; c < x; c++)
+                pixels[r][c].setColor(pixels[c][r].getColor());
    }
    
 /////////////////////////////////////////////////////////////////////////////////////
    
    // REQUIRED FOR 100-POINTS
    public void mirrorTemple()
-   { 
+   {
         Pixel[][] pixels = this.getPixels2D();
-        Pixel[][] temp = this.getPixels2D();
-        Color tempColor = new Color(0,0,0);
         for (int r = 0; r < 100; r++)
-        {
-          for (int c = 0; c < pixels[0].length; c++)
-          {
-              tempColor = temp[r][c].getColor();
-              pixels[r][pixels[0].length - c - 1].setColor(tempColor);
-          }
-        }
+            for (int c = 0; c < pixels[0].length / 2; c++)
+                pixels[r][pixels[0].length - c - 1].setColor(pixels[r][c].getColor());
    }
    
 } 
